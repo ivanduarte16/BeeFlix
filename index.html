@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeeFlix</title>
+    <link rel="icon" type="image/png" href="beeflix-app/assets/favicon.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <h1 class="logo">🐝 BeeFlix</h1>
+                    <nav class="nav">
+                        <button class="nav-button">Inicio</button>
+                        <button class="nav-button">Películas</button>
+                        <button class="nav-button">Mi Lista</button>
+                    </nav>
+                </div>
+                <div class="header-right">
+                    <div class="search-wrapper">
+                        <input type="text" id="searchInput" class="search-input" placeholder="Buscar películas..." aria-label="Buscar películas">
+                        <button class="search-button" id="searchButton" aria-label="Abrir búsqueda">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.35-4.35"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <button class="nav-button">Configuración</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Banner -->
+        <section class="hero-banner" id="heroBanner">
+            <div class="hero-content">
+                <div class="hero-info">
+                    <h2 class="hero-title" id="heroTitle"></h2>
+                    <div class="hero-meta">
+                        <span class="hero-year" id="heroYear"></span>
+                        <span class="hero-duration" id="heroDuration"></span>
+                        <div class="hero-rating" id="heroRating"></div>
+                    </div>
+                    <p class="hero-description" id="heroDescription"></p>
+                    <div class="hero-buttons">
+                        <button class="hero-play-button">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                            Reproducir
+                        </button>
+                        <button class="hero-info-button">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M12 16v-4M12 8h.01"></path>
+                            </svg>
+                            Más información
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-gradient"></div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="library-header">
+                <h2 class="library-title">Películas Animadas</h2>
+            </div>
+
+            <!-- Movies Grid -->
+            <div class="movies-grid" id="moviesGrid">
+                <!-- Movies will be dynamically loaded here -->
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
