@@ -3,3 +3,5 @@ node_modules/
 *.log
 beeflix-app/node_modules/
 beeflix-app/.expo/
+
+Peliculas/

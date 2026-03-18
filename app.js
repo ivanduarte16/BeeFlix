@@ -10,7 +10,11 @@ const mockMovies = [
         description: "Un joven vikingo que no encaja en su tribu guerrera se hace amigo de un dragón, cambiando para siempre la forma en que su pueblo ve a estas criaturas.",
         thumbnail: "Imgenes/Imagenes_Peliculas/Como_entrenar_a_tu_dragon_live_action.jpg",
         heroImage: "Imgenes/Imagenes_Hero/como-entrenar-a-tu-dragon-live-action.webp",
-        videoUrl: "Peliculas/Como entrenar a tu dragon/Live Action/Como entrenar a tu dragon (2025).mp4"
+        videoUrl: "Peliculas/Como entrenar a tu dragon/Live Action/Como entrenar a tu dragon (2025).mp4",
+        font: "'MedievalSharp', serif",
+        badges: ['NEW', '4K'],
+        progress: 0,
+        categories: ['aventura', 'familia', 'accion']
     },
     {
         id: 2,
@@ -20,7 +24,11 @@ const mockMovies = [
         rating: 4,
         description: "El legendario Gato con Botas emprende una aventura épica para limpiar su nombre y recuperar su honor, junto a Kitty Softpaws y Humpty Dumpty.",
         thumbnail: null,
-        heroImage: "Imgenes/Imagenes_Hero/gato_con_botas_1.webp"
+        heroImage: "Imgenes/Imagenes_Hero/gato_con_botas_1.webp",
+        font: "'Cinzel', serif",
+        badges: ['HDR'],
+        progress: 45,
+        categories: ['aventura', 'comedia', 'familia']
     },
     {
         id: 3,
@@ -30,7 +38,11 @@ const mockMovies = [
         rating: 5,
         description: "Una niña hawaiana solitaria adopta lo que cree que es un perro, pero en realidad es un experimento alienígena genético fugitivo.",
         thumbnail: "Imgenes/Imagenes_Peliculas/Lilo_y_Stitch_Live_Action.jpg",
-        heroImage: "Imgenes/Imagenes_Hero/lilo_stich_live_action.jpg"
+        heroImage: "Imgenes/Imagenes_Hero/lilo_stich_live_action.jpg",
+        font: "'Pacifico', cursive",
+        badges: ['NEW', '4K', 'HDR'],
+        progress: 0,
+        categories: ['familia', 'comedia', 'aventura']
     },
     {
         id: 4,
@@ -40,7 +52,11 @@ const mockMovies = [
         rating: 5,
         description: "Miles Morales se embarca en una aventura épica a través del multiverso con Gwen Stacy y un nuevo equipo de Spider-People.",
         thumbnail: null,
-        heroImage: "Imgenes/Imagenes_Hero/spider_man_across_spiderverse.jpg"
+        heroImage: "Imgenes/Imagenes_Hero/spider_man_across_spiderverse.jpg",
+        font: "'Bangers', cursive",
+        badges: ['4K', 'HDR'],
+        progress: 67,
+        categories: ['accion', 'aventura']
     },
     {
         id: 5,
@@ -50,7 +66,11 @@ const mockMovies = [
         rating: 5,
         description: "Una coneja policía y un zorro estafador deben trabajar juntos para descubrir una conspiración en la ciudad de los animales.",
         thumbnail: null,
-        heroImage: "Imgenes/Imagenes_Hero/zootopia_1.jpg"
+        heroImage: "Imgenes/Imagenes_Hero/zootopia_1.jpg",
+        font: "'Nunito', sans-serif",
+        badges: ['4K'],
+        progress: 100,
+        categories: ['familia', 'comedia', 'aventura']
     },
     {
         id: 6,
@@ -60,7 +80,11 @@ const mockMovies = [
         rating: 5,
         description: "Un vaquero de juguete se siente amenazado cuando un nuevo juguete espacial llega para ocupar su lugar como el juguete favorito del niño.",
         thumbnail: null,
-        heroImage: null
+        heroImage: null,
+        font: "'Permanent Marker', cursive",
+        badges: ['4K'],
+        progress: 23,
+        categories: ['familia', 'comedia', 'aventura']
     },
     {
         id: 7,
@@ -70,7 +94,11 @@ const mockMovies = [
         rating: 5,
         description: "Un pez payaso sobreprotector emprende un viaje épico para encontrar a su hijo capturado, con la ayuda de un pez cirujano con pérdida de memoria.",
         thumbnail: null,
-        heroImage: null
+        heroImage: null,
+        font: "'Pacifico', cursive",
+        badges: ['HDR'],
+        progress: 0,
+        categories: ['familia', 'aventura']
     },
     {
         id: 8,
@@ -80,7 +108,11 @@ const mockMovies = [
         rating: 5,
         description: "Un joven león debe aceptar su destino como rey legítimo después de la muerte de su padre a manos de su malvado tío.",
         thumbnail: null,
-        heroImage: null
+        heroImage: null,
+        font: "'Cinzel Decorative', serif",
+        badges: ['4K', 'HDR'],
+        progress: 12,
+        categories: ['familia', 'aventura']
     }
 ];
 
@@ -88,6 +120,72 @@ let currentHeroIndex = 0;
 let currentHeroMovie = null;
 let heroInterval = null;
 let isHeroPaused = false;
+let currentCategory = 'all';
+
+// Crear partículas flotantes
+function createParticles() {
+    const container = document.getElementById('heroParticles');
+    const particleCount = 30;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        const size = Math.random() * 3 + 1;
+        const startX = Math.random() * 100;
+        const drift = (Math.random() - 0.5) * 100;
+        const duration = Math.random() * 10 + 15;
+        const delay = Math.random() * 5;
+        
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        particle.style.left = startX + '%';
+        particle.style.setProperty('--drift', drift + 'px');
+        particle.style.animationDuration = duration + 's';
+        particle.style.animationDelay = delay + 's';
+        
+        container.appendChild(particle);
+    }
+}
+
+// Parallax en el hero
+function setupHeroParallax() {
+    // Desactivado por preferencia del usuario
+}
+
+// Sombra dinámica en tarjetas
+function setupCardDynamicShadow() {
+    document.addEventListener('mousemove', (e) => {
+        const cards = document.querySelectorAll('.movie-card:hover');
+        cards.forEach(card => {
+            const rect = card.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            
+            card.style.setProperty('--mouse-x', x + '%');
+            card.style.setProperty('--mouse-y', y + '%');
+        });
+    });
+}
+
+// Crear efecto ripple
+function createRipple(event, element) {
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple';
+    
+    const rect = element.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = event.clientX - rect.left - size / 2;
+    const y = event.clientY - rect.top - size / 2;
+    
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = x + 'px';
+    ripple.style.top = y + 'px';
+    
+    element.appendChild(ripple);
+    
+    setTimeout(() => ripple.remove(), 600);
+}
 
 function formatDuration(minutes) {
     const hours = Math.floor(minutes / 60);
@@ -187,9 +285,19 @@ function createMovieCard(movie) {
         ? `<img src="${movie.thumbnail}" alt="${movie.title}" class="movie-thumbnail" loading="lazy">`
         : `<div class="movie-thumbnail-placeholder" aria-hidden="true"><span>${movie.title.charAt(0)}</span></div>`;
 
+    const badgesHtml = movie.badges && movie.badges.length > 0
+        ? `<div class="movie-badges">${movie.badges.map(b => `<span class="badge${b === 'NEW' ? ' new' : ''}">${b}</span>`).join('')}</div>`
+        : '';
+
+    const progressHtml = movie.progress > 0
+        ? `<div class="progress-bar"><div class="progress-fill" style="width: ${movie.progress}%"></div></div>`
+        : '';
+
     card.innerHTML = `
         <div class="movie-thumbnail-container">
             ${thumbHtml}
+            ${badgesHtml}
+            ${progressHtml}
         </div>
         <div class="movie-info">
             <h3 class="movie-title">${movie.title}</h3>
@@ -199,9 +307,18 @@ function createMovieCard(movie) {
             </div>
             <div class="movie-rating" aria-label="${movie.rating} de 5 estrellas">${createStars(movie.rating)}</div>
             <div class="movie-actions">
-                <button class="action-button play" aria-label="Reproducir ${movie.title}">▶</button>
-                <button class="action-button" aria-label="Más información sobre ${movie.title}">i</button>
-                <button class="action-button" aria-label="Añadir ${movie.title} a mi lista">+</button>
+                <button class="action-button play" aria-label="Reproducir ${movie.title}">
+                    ▶
+                    <span class="tooltip">Reproducir</span>
+                </button>
+                <button class="action-button" aria-label="Más información sobre ${movie.title}">
+                    i
+                    <span class="tooltip">Más info</span>
+                </button>
+                <button class="action-button" aria-label="Añadir ${movie.title} a mi lista">
+                    +
+                    <span class="tooltip">Mi lista</span>
+                </button>
             </div>
         </div>
     `;
@@ -219,12 +336,23 @@ function createMovieCard(movie) {
 
 function renderMovies(movies) {
     const grid = document.getElementById('moviesGrid');
+    const counter = document.getElementById('movieCount');
     grid.innerHTML = '';
-    if (movies.length === 0) {
-        grid.innerHTML = '<p class="no-results">No se encontraron películas</p>';
+    
+    const filtered = currentCategory === 'all' 
+        ? movies 
+        : movies.filter(m => m.categories && m.categories.includes(currentCategory));
+    
+    // Actualizar contador
+    const count = filtered.length;
+    counter.textContent = count === 1 ? '1 película' : `${count} películas`;
+    
+    if (filtered.length === 0) {
+        grid.innerHTML = '<p class="no-results">No se encontraron películas en esta categoría</p>';
         return;
     }
-    movies.sort((a, b) => a.title.localeCompare(b.title, 'es')).forEach(movie => {
+    
+    filtered.sort((a, b) => a.title.localeCompare(b.title, 'es')).forEach(movie => {
         grid.appendChild(createMovieCard(movie));
     });
 }
@@ -272,6 +400,11 @@ document.addEventListener('DOMContentLoaded', () => {
         startHeroInterval();
         renderMovies(mockMovies);
         setupSearch();
+        
+        // Inicializar efectos visuales
+        createParticles();
+        setupHeroParallax();
+        setupCardDynamicShadow();
 
         document.querySelector('.hero-play-button').addEventListener('click', () => {
             if (currentHeroMovie) playMovie(currentHeroMovie);
@@ -281,5 +414,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const heroBanner = document.getElementById('heroBanner');
         heroBanner.addEventListener('mouseenter', () => { isHeroPaused = true; });
         heroBanner.addEventListener('mouseleave', () => { isHeroPaused = false; });
+
+        // Setup categorías
+        document.querySelectorAll('.category-chip').forEach(chip => {
+            chip.addEventListener('click', (e) => {
+                createRipple(e, chip);
+                document.querySelectorAll('.category-chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                currentCategory = chip.dataset.category;
+                renderMovies(mockMovies);
+            });
+        });
+
+        // Añadir ripple a todos los botones
+        document.addEventListener('click', (e) => {
+            if (e.target.matches('.action-button, .hero-play-button, .hero-info-button')) {
+                createRipple(e, e.target);
+            }
+        });
     }, 500);
 });

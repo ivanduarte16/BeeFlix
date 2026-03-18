@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BeeFlix</title>
     <link rel="icon" type="image/png" href="beeflix-app/assets/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -37,6 +40,7 @@
 
         <!-- Hero Banner -->
         <section class="hero-banner" id="heroBanner">
+            <div class="hero-particles" id="heroParticles"></div>
             <div class="hero-content">
                 <div class="hero-info">
                     <h2 class="hero-title" id="heroTitle"></h2>
@@ -69,7 +73,17 @@
         <!-- Main Content -->
         <main class="main-content">
             <div class="library-header">
-                <h2 class="library-title">Películas Animadas</h2>
+                <h2 class="library-title">Catálogo:</h2>
+                <span class="movie-count" id="movieCount">8 películas</span>
+            </div>
+
+            <!-- Categorías -->
+            <div class="categories" id="categories">
+                <button class="category-chip active" data-category="all">Todas</button>
+                <button class="category-chip" data-category="accion">Acción</button>
+                <button class="category-chip" data-category="aventura">Aventura</button>
+                <button class="category-chip" data-category="comedia">Comedia</button>
+                <button class="category-chip" data-category="familia">Familia</button>
             </div>
 
             <!-- Movies Grid -->
